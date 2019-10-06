@@ -5,7 +5,7 @@ import time
 import unicornhat as unicorn
 
 def main():
-	controller()
+	controller("on")
 	
 def stop():
 	width,height=unicorn.get_shape()
@@ -16,10 +16,12 @@ def stop():
 	unicorn.show()
 
 def controller(signal):
-	if signal == "1":
-		run()
-	else:
-		stop()
+	if signal == "on":
+		print("run-signal-received")
+		run(1)
+	elif signal == "off":
+		print("stop-signal-received")
+		run(0)
 
 def spectrum(x,y):
         unicorn.set_pixel(x,y,int(255),int(0),int(255))
@@ -27,22 +29,22 @@ def spectrum(x,y):
 def wave(x,y):
         unicorn.set_pixel(x,y,int(220),int(20),int(60))
 
-def run():
+def run(signal):
 
 	unicorn.set_layout(unicorn.AUTO)
 	unicorn.rotation(0)
 	unicorn.brightness(0.6)
 	width,height=unicorn.get_shape()
 
-	print("\n")
-	print("Running solidPulse")
-	print("\n")
+	#print("\n")
+	#print("Running solidPulse")
+	#print("\n")
 	#time.sleep(.5)
-
+	print(signal)
 	g = -1 
 	i = 0.0
 	offset = 30
-	while True:
+	while signal:
 		i = i + 0.3
 		g += 1
 		for y in range(height):
