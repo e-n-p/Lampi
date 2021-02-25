@@ -1,0 +1,43 @@
+{
+    "presetOne": {
+        "pattern": "banner",
+        "colour": {
+            "background": [
+                255,
+                0,
+                255
+            ],
+            "banner": [
+                220,
+                20,
+                60
+            ]
+        },
+        "intensity": 1.0
+    },
+    "presetTwo": {
+        "pattern": "banner",
+        "colour": {
+            "background": [
+                255,
+                255,
+                0
+            ],
+            "banner": [
+                0,
+                255,
+                255
+            ]
+        },
+        "intensity": 1.0
+    },
+    "presetThree": {
+        "pattern": "pulse",
+        "colour": [
+            220,
+            20,
+            60
+        ],
+        "intensity": 1.0
+    }
+}

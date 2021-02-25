@@ -2,15 +2,28 @@
 
 import time
 import unicornhat as unicorn
+import argparse
 
-def pulse(x,y):
-    unicorn.set_pixel(x,y,int(220),int(20),int(60))
+arg = argparse.ArgumentParser()
+arg.add_argument("-c", "--colour", required=False, help="Colour of pulse")
+arg.add_argument("-i", "--intensity", required=False, help="Colour of wave")
+args = vars(arg.parse_args())
 
-def run():
+def pulse(x, y, colour):
+    unicorn.set_pixel(x, y, colour[0], colour[1], colour[2])
+
+def runPulse():
+
+    intensity=1.0
+    if args['intensity']:
+        intensity = float(args['intensity'])
+    colour = [255,0,255]
+    if args['colour']:
+        colour = list(map(int, args['colour'].split(",")))
 
     unicorn.set_layout(unicorn.AUTO)
     unicorn.rotation(0)
-    unicorn.brightness(1)
+    unicorn.brightness(intensity)
 
     program = [ [3,5],
                 [2,6],
@@ -25,7 +38,7 @@ def run():
         topLeft, extent = program[controller]
         for y in range(topLeft, extent):
             for x in range(topLeft, extent):
-                pulse(x,y)
+                pulse(x, y, colour)
 
         unicorn.show()
         time.sleep(0.5)
@@ -36,5 +49,5 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    runPulse()
 
