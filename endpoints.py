@@ -3,6 +3,7 @@
 ##
 
 import lampSwitch
+import json
 from clearLamp import kill
 from flask import request
 from flask_restful import Resource
@@ -18,26 +19,30 @@ class LampOn(Resource):
 
 class onBanner(Resource):
     def post(self):
+        kill()
         schema = onBannerSchema()
         result = schema.loads(request.data.decode('UTF-8'))
+        colourOne = ', '.join(map(str, result['colours']['firstColour']))
+        colourTwo = ', '.join(map(str, result['colours']['secondColour']))
 
-        print(result['colour'])
+        print(result['colours'])
         print(result['intensity'])
 
-        #Popen(['python', 'banner.py'], cwd='/home/pi/server/tracks/')
-        return {'Lamp': 'on but specific'}
+        Popen(['python', 'banner.py', '-i', str(result['intensity']), '-bc', colourOne, '-wc', colourTwo], cwd='/home/pi/server/tracks/')
+        return 'on'
 
 class onPulse(Resource):
     def post(self):
+        kill()
         schema = onPulseSchema()
         result = schema.loads(request.data.decode('UTF-8'))
-        colours = ', '.join(map(str, result['colour']))
+        colour = ', '.join(map(str, result['colour']))
 
-        print(colours)
+        print(colour)
         print(result['intensity'])
 
-        Popen(['python', 'pulse.py', '-i', str(result['intensity']), '-c', colours], cwd='/home/pi/server/tracks/')
-        return {'Lamp': 'on but specific'}
+        Popen(['python', 'pulse.py', '-i', str(result['intensity']), '-c', colour], cwd='/home/pi/server/tracks/')
+        return 'on'
 
 
 class LampOff(Resource):
@@ -46,7 +51,9 @@ class LampOff(Resource):
 
 class LampPresets(Resource):
     def get(self):
-        return {
-                'Lamp0': 'preset1',
-                'Lamp1': 'preset2',
-            }
+
+        with open('/home/pi/server/presets.json') as data:
+            json_data = json.load(data)
+            print(json_data)
+
+        return json_data

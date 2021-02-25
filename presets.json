@@ -2,12 +2,12 @@
     "presetOne": {
         "pattern": "banner",
         "colour": {
-            "background": [
+            "firstColour": [
                 255,
                 0,
                 255
             ],
-            "banner": [
+            "secondColour": [
                 220,
                 20,
                 60
@@ -18,12 +18,12 @@
     "presetTwo": {
         "pattern": "banner",
         "colour": {
-            "background": [
+            "firstColour": [
                 255,
                 255,
                 0
             ],
-            "banner": [
+            "secondColour": [
                 0,
                 255,
                 255

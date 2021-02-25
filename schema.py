@@ -4,10 +4,12 @@
 
 from marshmallow import Schema, fields, ValidationError
 
+class doubleColourSchema(Schema):
+    firstColour = fields.List(fields.Int())
+    secondColour = fields.List(fields.Int())
 
 class onBannerSchema(Schema):
-    #handle colour object with 2 arrays
-    colour = fields.List(fields.Int(), required=True)
+    colours = fields.Nested(doubleColourSchema, required=True)
     intensity = fields.Float()
 
 
