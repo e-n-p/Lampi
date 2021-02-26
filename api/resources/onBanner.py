@@ -1,14 +1,21 @@
 
+from api.common.schema import onBannerSchema
 from api.interfaces.clearLamp import kill
 from flask import request
 from flask_restful import Resource
-from api.common.schema import onBannerSchema
+from marshmallow import ValidationError
 from subprocess import Popen
+
 
 class OnBanner(Resource):
     def post(self):
         kill()
-        schema = onBannerSchema()
+        try:
+            schema = onBannerSchema()
+        except ValidationError as err:
+            print(err)
+            return err.messages
+        
         result = schema.loads(request.data.decode('UTF-8'))
         colourOne = ', '.join(map(str, result['colours']['firstColour']))
         colourTwo = ', '.join(map(str, result['colours']['secondColour']))
