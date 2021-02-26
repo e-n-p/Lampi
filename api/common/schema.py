@@ -12,7 +12,6 @@ class onBannerSchema(Schema):
     colours = fields.Nested(doubleColourSchema, required=True)
     intensity = fields.Float()
 
-
-class onPulseSchema(Schema):
+class onBasicSchema(Schema):
     colour = fields.List(fields.Int(), required=True)
     intensity = fields.Float()

@@ -20,7 +20,7 @@ def collectProcesses(processes):
     oldSession = False
     for process in psutil.process_iter():
         for string in process.cmdline():
-            if re.search('pulse.py|banner.py', string):
+            if re.search('pulse.py|banner.py|solid.py', string):
                 oldSession=True
                 processes.append(process)
 
@@ -41,3 +41,4 @@ def kill():
 
 if __name__ == '__main__':
     kill()
+    cleanUp()
