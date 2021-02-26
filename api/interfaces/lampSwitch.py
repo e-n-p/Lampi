@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from subprocess import Popen
-from clearLamp import kill, collectProcesses
+from api.interfaces.clearLamp import kill, collectProcesses
 
 
 def lampSwitch():
@@ -11,7 +11,7 @@ def lampSwitch():
     if oldSession:
         kill()
     else:
-        Popen(['python', 'banner.py'], cwd='/home/pi/server/tracks/')
+        Popen(['python', 'banner.py'], cwd='/home/pi/server/api/tracks/')
         return 'on'
 
 if __name__ == '__main__':
