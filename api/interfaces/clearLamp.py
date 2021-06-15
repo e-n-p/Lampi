@@ -3,6 +3,7 @@
 import unicornhat as unicorn
 import psutil
 import re
+from flask import current_app as app
 
 # only use as clean-up of lamp after killing processes
 def cleanUp():
@@ -30,7 +31,7 @@ def kill():
     processes = []
     oldSession, processes = collectProcesses(processes)
 
-    print("clearLamp:kill: " + str(oldSession) + ", " + str(processes))
+    app.logger.info("clearLamp:kill: " + str(oldSession) + ", " + str(processes))
 
     if oldSession:
         for p in processes:

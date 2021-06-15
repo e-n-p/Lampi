@@ -1,9 +1,9 @@
 ##
 # api.py 8/2/2021
 ##
-
+import logging
 from flask import Flask
-from flask_restful import Resource, Api
+from flask_restful import Api
 from api.resources.on import On
 from api.resources.onBanner import OnBanner
 from api.resources.onPulse import OnPulse
@@ -15,6 +15,9 @@ from api.resources.presets import Presets
 app = Flask(__name__)
 api = Api(app)
 
+gunicorn_error_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers.extend(gunicorn_error_logger.handlers)
+app.logger.setLevel(logging.DEBUG)
 
 api.add_resource(On, '/on')
 api.add_resource(Off, '/off')
