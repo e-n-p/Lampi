@@ -10,6 +10,7 @@ from api.resources.onPulse import OnPulse
 from api.resources.onSolid import OnSolid
 from api.resources.off import Off
 from api.resources.presets import Presets
+from api.resources.getStatus import GetStatus, GetStatusWithArgs
 
 
 app = Flask(__name__)
@@ -27,7 +28,8 @@ api.add_resource(OnBanner, '/onBanner')
 api.add_resource(OnPulse, '/onPulse')
 #onDancer
 #onPrancer
-
+api.add_resource(GetStatus, '/getStatus')
+api.add_resource(GetStatusWithArgs, '/getStatusWithArgs')
 api.add_resource(Presets, '/getPresets')
 
 if __name__ == '__main__':

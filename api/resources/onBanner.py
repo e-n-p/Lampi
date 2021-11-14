@@ -10,7 +10,7 @@ from subprocess import Popen
 class OnBanner(Resource):
     def post(self):
         kill()
-        app.logger.info("onSolid called")
+        app.logger.info("onBanner called")
         try:
             schema = onBannerSchema()
         except ValidationError as err:
