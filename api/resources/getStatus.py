@@ -12,17 +12,21 @@ class GetStatusWithArgs(Resource):
         for process in psutil.process_iter():
             for string in process.cmdline():
                 if re.search('pulse.py|banner.py|solid.py', string):
-                    print(process.as_dict()['cmdline'])
-                    process_details.append(process.as_dict()['cmdline'][1])
-                    process_details.append(process.as_dict()['cmdline'][3])
-                    process_details.append(process.as_dict()['cmdline'][5])
+                    process_dict = process.as_dict()
+                    app.logger.info(str(process_dict['cmdline']))
+                    process_details.append(process_dict['cmdline'][1][:-3])
+                    process_details.append(process_dict['cmdline'][3])
+                    process_details.append(str(process_dict['cmdline'][5]).replace(" ", ""))
 
-                    if process.as_dict()['cmdline'][1] == 'banner.py':
-                        process_details.append(process.as_dict()['cmdline'][7])
+                    if process_dict['cmdline'][1] == 'banner.py':
+                        process_details[2] += (
+                            ';' + str(process.as_dict()['cmdline'][7]).replace(" ", "")
+                        )
 
-                    return str(process_details)
+                    app.logger.info(str(process_details))
 
-        return '0'
+        return process_details
+
 
 
 class GetStatus(Resource):
