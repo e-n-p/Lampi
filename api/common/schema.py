@@ -1,8 +1,7 @@
-##
-# endpoints.py 22/2/2021
-##
-
-from marshmallow import Schema, fields, validates, ValidationError
+"""
+    schema
+"""
+from marshmallow import Schema, fields, ValidationError
 
 
 def validate_colour(value):
@@ -21,15 +20,14 @@ def validate_intensity(value):
     if value > 1.0:
         raise ValidationError("intensity value too high")
 
-class doubleColourSchema(Schema):
+class DoubleColourSchema(Schema):
     firstColour = fields.List(fields.Int(), validate=validate_colour)
     secondColour = fields.List(fields.Int(), validate=validate_colour)
 
-class onBannerSchema(Schema):
-    colours = fields.Nested(doubleColourSchema, required=True)
+class OnBannerSchema(Schema):
+    colours = fields.Nested(DoubleColourSchema, required=True)
     intensity = fields.Float(validate=validate_intensity)
 
-class onBasicSchema(Schema):
+class OnBasicSchema(Schema):
     colour = fields.List(fields.Int(), required=True, validate=validate_colour)
     intensity = fields.Float(validate=validate_intensity)
-

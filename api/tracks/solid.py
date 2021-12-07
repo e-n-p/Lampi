@@ -1,17 +1,19 @@
+"""
+    solid
+"""
+import argparse
 
 import unicornhat as unicorn
-import argparse
 
 arg = argparse.ArgumentParser()
 arg.add_argument("-c", "--colour", required=False, help="Colour of Lamp")
 arg.add_argument("-i", "--intensity", required=False, help="Brightness of lamp")
 args = vars(arg.parse_args())
 
-def setLED(x,y, background_colour):
-    unicorn.set_pixel(x, y, background_colour[0], background_colour[1], background_colour[2])
+def set_LED(x_coord, y_coord, bg_colour):
+    unicorn.set_pixel(x_coord, y_coord, bg_colour[0], bg_colour[1], bg_colour[2])
 
-def runSolid():
-
+def run_solid():
     intensity=1.0
     if args['intensity']:
         intensity = float(args['intensity'])
@@ -25,12 +27,11 @@ def runSolid():
     width,height=unicorn.get_shape()
 
     while True:
-        for y in range(height):
-            for x in range(width):
-                setLED(x, y, colour)
+        for y_coord in range(height):
+            for x_coord in range(width):
+                set_LED(x_coord, y_coord, colour)
 
         unicorn.show()
 
 if __name__ == "__main__":
-    runSolid()
-
+    run_solid()

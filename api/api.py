@@ -1,16 +1,16 @@
-##
-# api.py 8/2/2021
-##
+"""
+    api
+"""
 import logging
 from flask import Flask
 from flask_restful import Api
 from api.resources.on import On
-from api.resources.onBanner import OnBanner
-from api.resources.onPulse import OnPulse
-from api.resources.onSolid import OnSolid
+from api.resources.on_banner import OnBanner
+from api.resources.on_pulse import OnPulse
+from api.resources.on_solid import OnSolid
 from api.resources.off import Off
 from api.resources.presets import Presets
-from api.resources.getStatus import GetStatus, GetStatusWithArgs
+from api.resources.get_status import GetStatus, GetStatusWithArgs
 
 
 app = Flask(__name__)

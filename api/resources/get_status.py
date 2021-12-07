@@ -1,6 +1,10 @@
-from flask import request, current_app as app
-import psutil
+"""
+    get_status
+"""
 import re
+
+from flask import current_app as app
+import psutil
 
 from flask_restful import Resource
 
@@ -38,4 +42,3 @@ class GetStatus(Resource):
                 if re.search('pulse.py|banner.py|solid.py', string):
                     return '1'
         return '0'
-
