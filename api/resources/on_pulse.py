@@ -20,20 +20,25 @@ class OnPulse(Resource):
         except ValidationError as err:
             app.logger.error(err)
             return err.messages
+        result = 'on'
+        parameters = schema.loads(request.data.decode('UTF-8'))
+        app.logger.info(parameters)
 
-        result = schema.loads(request.data.decode('UTF-8'))
-        colour = ', '.join(map(str, result['colour']))
+        colour = ', '.join(map(str, parameters['colour']))
 
-        app.logger.info(colour)
-        app.logger.info(result['intensity'])
+        try:
+            Popen(
+                [
+                    'python',
+                    'pulse.py',
+                    '-i',
+                    str(parameters['intensity']),
+                    '-c',
+                    colour
+                ],
+                cwd='/home/pi/server/api/tracks/'
+            )
+        except:
+            result = 'failure calling pulse'
 
-        Popen([
-            'python',
-            'pulse.py',
-            '-i',
-            str(result['intensity']),
-            '-c',
-            colour],
-            cwd='/home/pi/server/api/tracks/'
-        )
-        return 'on'
+        return result

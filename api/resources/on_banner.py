@@ -20,25 +20,28 @@ class OnBanner(Resource):
         except ValidationError as err:
             app.logger.error(err)
             return err.messages
+        result = 'on'
+        parameters = schema.loads(request.data.decode('UTF-8'))
+        app.logger.info(parameters)
 
-        result = schema.loads(request.data.decode('UTF-8'))
-        colour_one = ', '.join(map(str, result['colours']['firstColour']))
-        colour_two = ', '.join(map(str, result['colours']['secondColour']))
+        colour_one = ', '.join(map(str, parameters['colours']['firstColour']))
+        colour_two = ', '.join(map(str, parameters['colours']['secondColour']))
 
-        app.logger.info(result['colours'])
-        app.logger.info(result['intensity'])
+        try:
+            Popen(
+                [
+                    'python',
+                    'banner.py',
+                    '-i',
+                    str(parameters['intensity']),
+                    '-bc',
+                    colour_one,
+                    '-wc',
+                    colour_two
+                ],
+                cwd='/home/pi/server/api/tracks/'
+            )
+        except:
+            result = 'failure calling banner'
 
-        Popen(
-            [
-                'python',
-                'banner.py',
-                '-i',
-                str(result['intensity']),
-                '-bc',
-                colour_one,
-                '-wc',
-                colour_two
-            ],
-            cwd='/home/pi/server/api/tracks/'
-        )
-        return 'on'
+        return result
