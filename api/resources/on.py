@@ -5,8 +5,6 @@ from subprocess import Popen
 from flask_restful import Resource
 from flask import current_app as app
 
-from api.common.utils import lamp_switch
-
 
 class On(Resource):
     def get(self):

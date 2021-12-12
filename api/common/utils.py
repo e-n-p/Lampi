@@ -3,7 +3,6 @@
 """
 import re
 
-from subprocess import Popen
 import psutil
 import unicornhat as unicorn
 
@@ -43,17 +42,6 @@ def kill():
             process.terminate()
             process.wait()
             clean_up()
-
-def lamp_switch():
-    processes = []
-    old_session, _ = collect_processes(processes)
-
-    if old_session:
-        kill()
-    else:
-        Popen(['python', 'banner.py'], cwd='/home/pi/server/api/tracks/')
-        return 'on'
-    return 'off'
 
 
 if __name__ == '__main__':
