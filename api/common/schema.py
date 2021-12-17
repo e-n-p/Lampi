@@ -24,7 +24,7 @@ class DoubleColourSchema(Schema):
     firstColour = fields.List(fields.Int(), validate=validate_colour)
     secondColour = fields.List(fields.Int(), validate=validate_colour)
 
-class OnBannerSchema(Schema):
+class OnDoubleSchema(Schema):
     colours = fields.Nested(DoubleColourSchema, required=True)
     intensity = fields.Float(validate=validate_intensity)
 

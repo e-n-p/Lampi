@@ -5,9 +5,7 @@ import logging
 from flask import Flask
 from flask_restful import Api
 from api.resources.on import On
-from api.resources.on_banner import OnBanner
-from api.resources.on_pulse import OnPulse
-from api.resources.on_solid import OnSolid
+from api.resources.on_track import OnTrack
 from api.resources.off import Off
 from api.resources.presets import Presets
 from api.resources.get_status import GetStatus, GetStatusWithArgs
@@ -23,9 +21,9 @@ app.logger.setLevel(logging.DEBUG)
 api.add_resource(On, '/on')
 api.add_resource(Off, '/off')
 
-api.add_resource(OnSolid, '/onSolid')
-api.add_resource(OnBanner, '/onBanner')
-api.add_resource(OnPulse, '/onPulse')
+api.add_resource(OnTrack, '/onSolid', endpoint='onSolid')
+api.add_resource(OnTrack, '/onBanner', endpoint='onBanner')
+api.add_resource(OnTrack, '/onPulse', endpoint='onPulse')
 #onDancer
 #onPrancer
 api.add_resource(GetStatus, '/getStatus')
