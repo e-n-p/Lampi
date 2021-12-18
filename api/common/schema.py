@@ -21,8 +21,8 @@ def validate_intensity(value):
         raise ValidationError("intensity value too high")
 
 class DoubleColourSchema(Schema):
-    firstColour = fields.List(fields.Int(), validate=validate_colour)
-    secondColour = fields.List(fields.Int(), validate=validate_colour)
+    firstColour = fields.List(fields.Int(), validate=validate_colour, required=True)
+    secondColour = fields.List(fields.Int(), validate=validate_colour, required=True)
 
 class OnDoubleSchema(Schema):
     colours = fields.Nested(DoubleColourSchema, required=True)
