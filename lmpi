@@ -1,0 +1,40 @@
+#!/bin/bash
+
+
+COMMAND=$1
+
+if [[ -z $COMMAND ]]; then
+   echo "Available commands are:"
+   echo "  start          - start lampi api"
+   echo "  stop           - turn off any running program"
+   echo "  kill           - kill lampi processes"
+   echo "  restart        - restart lampi api"
+   echo "  logs           - api logs"
+fi
+
+
+if [[ $COMMAND == "start" ]]; then
+	sudo systemctl start api
+fi
+
+
+if [[ $COMMAND == "stop" ]]; then
+	sudo systemctl stop api 
+fi
+
+
+if [[ $COMMAND == "kill" ]]; then
+	ps -ea | grep gunicorn | awk "{print \$1}" | xargs sudo kill
+fi
+
+
+if [[ $COMMAND == "restart" ]]; then
+	sudo systemctl restart api
+fi
+
+
+if [[ $COMMAND == "logs" ]]; then
+	tail -fn 20 /home/pi/server/logs
+fi
+
+
